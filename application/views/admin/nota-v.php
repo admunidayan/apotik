@@ -73,9 +73,20 @@
 						<form action="<?php echo base_url('index.php/admin/pembelian/update_menu_nota/'.$data->id_menu_to_nota) ?>" method="post">
 							<tr>
 								<td><?php echo $no; ?></td>
-								<td><?php echo $data->nama_menu; ?></td>
+								<td>
+									<?php echo $data->nama_menu; ?>
+									<?php if ($data->diskon !== '0'): ?>
+										<span style="color: green">- dskn <?php echo $data->diskon.' %'; ?></span>
+									<?php endif ?>
+								</td>
 								<td><input type="text" name="jml_menu" value="<?php echo $data->jml_menu ?>" style="width: 30px;text-align: center;"></td>
-								<td><?php echo 'Rp.'.$data->total_bayar; ?></td>
+								<td>
+									<?php if ($data->diskon !== '0'): ?>
+										<span style="color: green"><?php echo 'Rp.'.$data->total_bayar; ?></span>
+									<?php else: ?>
+										<?php echo 'Rp.'.$data->total_bayar; ?>
+									<?php endif ?>
+									</td>
 								<?php if ($data->id_status == '1'): ?>
 									<td><a class="btn btn-outline-danger btn-sm" href="<?php echo base_url('index.php/admin/pembelian/delete_order/'.$detnota->id_nota.'/'.$data->id_menu_to_nota) ?>"><i class="fa fa-trash"></i></a></td>
 								<?php endif ?>

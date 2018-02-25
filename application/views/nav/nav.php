@@ -4,7 +4,7 @@
 	<?php if ($this->ion_auth->in_group('admin')): ?>
 		<a href="<?php echo base_url('index.php/admin/dashboard/') ?>"><li class="linkmenu text-dark"><i class="fa fa-desktop text-info"></i> Beranda</li></a>
 	<a href="<?php echo base_url('index.php/admin/kategori/') ?>"><li class="linkmenu text-dark"><i class="fa fa-tags text-info"></i> Kategori</li></a>
-	<a href="<?php echo base_url('index.php/admin/obat/') ?>"><li class="linkmenu text-dark"><i class="fa fa-list text-info"></i> Daftar Obat</li></a>
+	<a href="<?php echo base_url('index.php/admin/obat/') ?>"><li class="linkmenu text-dark"><i class="fa fa-list text-info"></i> List Barang</li></a>
 	<a href="<?php echo base_url('index.php/admin/pembelian/') ?>"><li class="linkmenu text-dark"><i class="fa fa-shopping-basket text-info"></i> Pembelian</li>
 	</a>
 	<a href="<?php echo base_url('index.php/admin/histori/') ?>"><li class="linkmenu text-dark"><i class="fa fa-trophy text-info"></i> History</li></a>
@@ -13,7 +13,7 @@
 <?php else: ?>
 	<a href="<?php echo base_url('index.php/admin/dashboard/') ?>"><li class="linkmenu text-dark"><i class="fa fa-desktop text-info"></i> Beranda</li></a>
 	<a href="<?php echo base_url('index.php/admin/pembelian/') ?>"><li class="linkmenu text-dark"><i class="fa fa-shopping-basket text-info"></i> Pembelian</li>
-	<a href="<?php echo base_url('index.php/admin/obat/') ?>"><li class="linkmenu text-dark"><i class="fa fa-list text-info"></i> Daftar Obat</li></a>
+	<a href="<?php echo base_url('index.php/admin/obat/') ?>"><li class="linkmenu text-dark"><i class="fa fa-list text-info"></i> List Barang</li></a>
 	<?php endif ?>
 	
 </ul>

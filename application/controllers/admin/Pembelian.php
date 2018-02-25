@@ -130,12 +130,18 @@ class Pembelian extends CI_Controller {
             }else{
                 $post=$this->input->post();
                 $detail = $this->Admin_m->detail_data_order('menu','id_menu',$post['id_menu']);
+                if ($detail->diskon !== '0') {
+                    $hargadiskon = $detail->harga_satuan*$detail->diskon/100;
+                    $harusbayar = $detail->harga_satuan-$hargadiskon;
+                }else{
+                    $harusbayar = $detail->harga_satuan;
+                }
                 $data = array(
                     'id_nota' =>$post['id_nota'],
                     'id_menu' =>$post['id_menu'],
                     'jml_menu' =>1,
                     'tgl_bayar' =>$tanggal,
-                    'total_bayar' =>$detail->harga_satuan,
+                    'total_bayar' =>$harusbayar,
                     'id_status' =>1
                 );
                 $this->Admin_m->create('menu_to_nota',$data);

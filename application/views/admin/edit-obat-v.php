@@ -22,17 +22,15 @@
 			</div>
 			<small id="id_kategori" class="form-text text-muted">Pilih salah satu kategori obat</small>
 		</div>
+		<div class="form-group">
+			<label for="stok">Jumlah Stok</label>
+			<input type="text" class="form-control" name="stok" id="stok" placeholder="Jumlah stok tersedia" value="<?php echo $hasil->stok ?>">
+			<small id="stok" class="form-text text-muted">Isikan dengan anka, tidak boleh dengan huruf</small>
+		</div>
 		<div class="row">
 			<div class="col">
 				<div class="form-group">
-					<label for="stok">Jumlah Stok</label>
-					<input type="text" class="form-control" name="stok" id="stok" placeholder="Jumlah stok tersedia" value="<?php echo $hasil->stok ?>">
-					<small id="stok" class="form-text text-muted">Isikan dengan anka, tidak boleh dengan huruf</small>
-				</div>
-			</div>
-			<div class="col">
-				<div class="form-group">
-					<label for="harga_satuan">Harga Satuan</label>
+					<label for="harga_satuan">Harga Satuan (Reguler)</label>
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">Rp.</span>
@@ -42,6 +40,23 @@
 					<small id="harga_satuan" class="form-text text-muted">Penulisan ditulis dengan angka tanpa titik Misal Rp.50.000 di tulis "50000"</small>
 				</div>
 			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="harga_satuan">Harga Member</label>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Rp.</span>
+						</div>
+						<input type="text" class="form-control" name="harga_member" id="harga_member" placeholder="Masukan Jumlah Rupiah, Misal 5000" value="<?php echo $hasil->harga_member ?>">
+					</div>
+					<small id="harga_member" class="form-text text-muted">Penulisan ditulis dengan angka tanpa titik Misal Rp.50.000 di tulis "50000"</small>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="diskon">Diskon</label>
+			<input type="text" class="form-control" name="diskon" id="diskon" placeholder="Jumlah stok tersedia" value="<?php echo $hasil->diskon ?>">
+			<small id="diskon" class="form-text text-muted">Isikan dengan anka 1-100 digunakan untuk persenan, ditulis tanpa menggunakan %, cukup angka saja</small>
 		</div>
 		<div class="form-group">
 			<label for="ket_menu">Keterangan Obat</label>

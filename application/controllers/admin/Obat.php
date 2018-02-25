@@ -100,6 +100,8 @@ class Obat extends CI_Controller {
                     'kode_menu' =>$post['kode_menu'],
                     'stok' =>$post['stok'],
                     'harga_satuan' =>$post['harga_satuan'],
+                    'harga_member' =>$post['harga_member'],
+                    'diskon' =>$post['diskon'],
                     'ket_menu' =>$post['ket_menu'],
                 );
                 $this->Admin_m->create('menu',$data);
@@ -128,6 +130,8 @@ class Obat extends CI_Controller {
                     'kode_menu' =>$post['kode_menu'],
                     'stok' =>$post['stok'],
                     'harga_satuan' =>$post['harga_satuan'],
+                    'harga_member' =>$post['harga_member'],
+                    'diskon' =>$post['diskon'],
                     'ket_menu' =>$post['ket_menu'],
                 );
                 $this->Admin_m->update('menu','id_menu',$id,$data);

@@ -1,10 +1,10 @@
 <div style="margin-top: 14px; background-color: white;padding: 30px">
 	<div class="media">
 		<div class="media-left">
-			<h5 class="text-info">Daftar Obat</h5><hr/>
+			<h5 class="text-info">Daftar Barang</h5><hr/>
 		</div>
 		<div class="media-body"></div>
-		<div class="media-right"><button class="btn btn-outline-success" data-toggle="modal" data-target="#addobat"><i class="fa fa-plus-circle"></i> Tambah Obat</button></div>
+		<div class="media-right"><button class="btn btn-outline-success" data-toggle="modal" data-target="#addobat"><i class="fa fa-plus-circle"></i> Tambah Barang</button></div>
 	</div>
 	<form action="<?php echo base_url('index.php/admin/obat/index') ?>" method="post">
 		<input type="text" name="string" class="form-control" placeholder="masukan Nama barang atau kode barang" style="width: 100%">
@@ -73,21 +73,41 @@
 						</div>
 						<small id="id_kategori" class="form-text text-muted">Pilih salah satu kategori obat</small>
 					</div>
+					<div class="form-group">
+						<label for="stok">Jumlah Stok</label>
+						<input type="text" class="form-control" name="stok" id="stok" placeholder="Jumlah stok tersedia">
+						<small id="stok" class="form-text text-muted">Isikan dengan anka, tidak boleh dengan huruf</small>
+					</div>
 					<div class="row">
 						<div class="col">
 							<div class="form-group">
-								<label for="stok">Jumlah Stok</label>
-								<input type="text" class="form-control" name="stok" id="stok" placeholder="Jumlah stok tersedia">
-								<small id="stok" class="form-text text-muted">Isikan dengan anka, tidak boleh dengan huruf</small>
+								<label for="harga_satuan">Harga Satuan (Reguler)</label>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Rp.</span>
+									</div>
+									<input type="text" class="form-control" name="harga_satuan" id="harga_satuan" placeholder="Masukan Jumlah Rupiah, Misal 5000">
+								</div>
+								<small id="harga_satuan" class="form-text text-muted">Penulisan ditulis dengan angka tanpa titik Misal Rp.50.000 di tulis "50000"</small>
 							</div>
 						</div>
 						<div class="col">
 							<div class="form-group">
-								<label for="harga_satuan">Harga Satuan</label>
-								<input type="text" class="form-control" name="harga_satuan" id="harga_satuan" placeholder="Masukan Jumlah Rupiah, Misal 5000">
-								<small id="harga_satuan" class="form-text text-muted">Penulisan ditulis dengan angka tanpa titik Misal Rp.50.000 di tulis "50000"</small>
+								<label for="harga_satuan">Harga Member</label>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Rp.</span>
+									</div>
+									<input type="text" class="form-control" name="harga_member" id="harga_member" placeholder="Masukan Jumlah Rupiah, Misal 5000">
+								</div>
+								<small id="harga_member" class="form-text text-muted">Penulisan ditulis dengan angka tanpa titik Misal Rp.50.000 di tulis "50000"</small>
 							</div>
 						</div>
+					</div>
+					<div class="form-group">
+						<label for="diskon">Diskon</label>
+						<input type="text" class="form-control" name="diskon" id="diskon" placeholder="Jumlah stok tersedia">
+						<small id="diskon" class="form-text text-muted">Isikan dengan anka 1-100 digunakan untuk persenan, ditulis tanpa menggunakan %, cukup angka saja</small>
 					</div>
 					<div class="form-group">
 						<label for="ket_menu">Keterangan Obat</label>

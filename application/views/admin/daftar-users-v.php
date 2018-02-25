@@ -81,7 +81,7 @@
 					<div class="form-group" style="margin-top: 30px;">
 						<label class="control-label">Groups</label><br/>
 						<?php foreach ($groups as $gg): ?>
-							<?php if ($gg->id=='2'): ?>
+							<?php if ($gg->id=='3'): ?>
 								<input type="checkbox" name="groups" value="<?php echo $gg->id; ?>" checked> <?php echo $gg->name; ?>
 							<?php else: ?>
 								<input type="checkbox" name="groups[]" value="<?php echo $gg->id; ?>"> <?php echo $gg->name; ?>
