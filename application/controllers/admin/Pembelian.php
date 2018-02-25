@@ -168,9 +168,15 @@ class Pembelian extends CI_Controller {
                 $post=$this->input->post();
                 $detail = $this->Admin_m->detail_data_order('menu_to_nota','id_menu_to_nota',$id);
                 $menu = $this->Admin_m->detail_data_order('menu','id_menu',$detail->id_menu);
+                if ($menu->diskon !== '0') {
+                    $hargadiskon = $menu->harga_satuan*$menu->diskon/100;
+                    $harusbayar = $menu->harga_satuan-$hargadiskon;
+                }else{
+                    $harusbayar = $menu->harga_satuan;
+                }
                 $data = array(
                     'jml_menu' =>$post['jml_menu'],
-                    'total_bayar' =>$post['jml_menu']*$menu->harga_satuan,
+                    'total_bayar' =>$post['jml_menu']*$harusbayar,
                 );
                 $this->Admin_m->update('menu_to_nota','id_menu_to_nota',$id,$data);
 
