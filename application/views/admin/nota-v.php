@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-6">
 		<div style="margin-top: 14px; background-color: white;padding: 30px">
-			<h5 class="text-info">Daftar Obat</h5><hr/>
+			<h5 class="text-info">Daftar Barang</h5><hr/>
 			<form action="<?php echo base_url('index.php/admin/pembelian/nota/'.$detnota->id_nota) ?>" method="post">
 				<input type="text" name="string" class="form-control" placeholder="masukan Nama barang atau kode barang" style="width: 100%">
 				<small id="nama_kategori" class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
@@ -38,6 +38,13 @@
 	</div>
 	<div class="col-md-6">
 		<div style="margin-top: 14px; background-color: white;padding: 30px">
+			<h5 class="text-info">Masukan Member</h5><hr/>
+			<div class="form-group">
+				<input type="text" class="form-control" id="idmember" aria-describedby="idmember" placeholder="Masukan Id Member">
+				<small id="idmember" class="form-text text-muted">jika kode benar, sistem akan otomatis merubah nota menjadi nota member</small>
+			</div>
+		</div>
+		<div style="margin-top: 14px; background-color: white;padding: 30px">
 			<h5 class="text-info">Detail Pemesanan</h5><hr/>
 			<table>
 				<tr>
@@ -64,6 +71,17 @@
 					<td>Status</td>
 					<td>:</td>
 					<td><?php echo $detnota->nm_status; ?></td>
+				</tr>
+				<tr>
+					<td>Member</td>
+					<td>:</td>
+					<td>
+						<?php if ($detnota->id_member == 0): ?>
+							Non-member
+						<?php else: ?>
+							Member
+						<?php endif ?>
+					</td>
 				</tr>
 			</table>
 			<?php if ($beli==TRUE): ?>

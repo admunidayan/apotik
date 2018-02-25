@@ -77,7 +77,7 @@ class Pembelian extends CI_Controller {
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
                 $post = $this->input->post();
-                $data['title'] = 'Pembelian - '.$nota;
+                $data['title'] = 'Pembelian - Nota Nomor '.$nota;
                 $data['infopt'] = $this->Admin_m->info_pt(1);
                 $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
                 $data['users'] = $this->ion_auth->user()->row();
