@@ -244,6 +244,29 @@ class Pembelian extends CI_Controller {
             redirect(base_url('index.php/login'));
         }
     }
+    public function cetak_struk($nota){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $data['title'] = 'Cetak Struk - Nota Nomor '.$nota;
+                $data['infopt'] = $this->Admin_m->info_pt(1);
+                $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
+                $data['users'] = $this->ion_auth->user()->row();
+                $data['detnota'] = $this->Admin_m->detail_data_nota($nota);
+                $data['beli'] = $this->Admin_m->list_data_beli($nota);
+                // pagging setting
+                $this->load->view('admin/cetak-struk-v',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
     public function delete_nota($nota){
         $cek = $this->Admin_m->select_all_data_order('menu_to_nota','id_nota',$nota);
         if ($cek == TRUE) {

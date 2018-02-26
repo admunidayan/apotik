@@ -201,7 +201,7 @@
 							<td colspan="2"><b><?php echo 'Rp.'.$detnota->kembalian; ?></b></td>
 						</tr>
 						<tr>
-							<td colspan="5"><button class="btn btn-outline-info btn-sm" style="width: 100%">Cetak Struk</button></td>
+							<td colspan="5"><a href="<?php echo base_url('index.php/admin/pembelian/cetak_struk/'.$detnota->id_nota) ?>" class="btn btn-outline-info btn-sm" style="width: 100%" target="_blank">Cetak Struk</a></td>
 						</tr>
 					<?php endif ?>
 				</table>

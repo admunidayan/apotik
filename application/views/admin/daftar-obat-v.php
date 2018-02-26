@@ -7,7 +7,20 @@
 		<div class="media-right"><button class="btn btn-outline-success" data-toggle="modal" data-target="#addobat"><i class="fa fa-plus-circle"></i> Tambah Barang</button></div>
 	</div>
 	<form action="<?php echo base_url('index.php/admin/obat/index') ?>" method="post">
-		<input type="text" name="string" class="form-control" placeholder="masukan Nama barang atau kode barang" style="width: 100%">
+		<div class="row">
+			<div class="col">
+				<input type="text" name="string" class="form-control" placeholder="masukan Nama barang atau kode barang" style="width: 100%">
+			</div>
+			<div class="col">
+				<select name="kategori" class="custom-select" onchange="this.form.submit()">
+					<option value="">-- Pilih Kategori --</option>
+					<option value="">Semua Kategori</option>
+					<?php foreach ($katgor as $data): ?>
+						<option value="<?php echo $data->id_kategori ?>"><?php echo $data->nama_kategori; ?></option>
+					<?php endforeach ?>
+				</select>	
+			</div>
+		</div>
 		<small id="nama_kategori" class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
 	</form>
 	<table class="table bts-ats">

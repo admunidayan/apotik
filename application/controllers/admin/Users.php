@@ -30,7 +30,7 @@ class Users extends CI_Controller {
 		}else{
 			$pesan = 'Login terlebih dahulu';
 			$this->session->set_flashdata('message', $pesan );
-			redirect(base_url('index.php/admin//login'));
+			redirect(base_url('index.php/login'));
 		}
 	}
 	public function create(){
@@ -57,7 +57,7 @@ class Users extends CI_Controller {
 		}else{
 			$pesan = 'Login terlebih dahulu';
 			$this->session->set_flashdata('message', $pesan );
-			redirect(base_url('index.php/admin//login'));
+			redirect(base_url('index.php/login'));
 		}
 	}
 	public function proses_create(){
@@ -119,7 +119,7 @@ class Users extends CI_Controller {
 		}else{
 			$pesan = 'Login terlebih dahulu';
 			$this->session->set_flashdata('message', $pesan );
-			redirect(base_url('index.php/admin//login'));
+			redirect(base_url('index.php/login'));
 		}
 	}
 	public function proses_edit(){

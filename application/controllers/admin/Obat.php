@@ -24,7 +24,7 @@ class Obat extends CI_Controller {
                 $data['kategori'] =$this->Admin_m->select_all_data('kategori');
                 // config paging
                 $config['base_url'] = base_url('index.php/admin/obat/index');
-                $config['total_rows'] = $this->Admin_m->count_data_menu(@$post['string']); //total row
+                $config['total_rows'] = $this->Admin_m->count_data_menu(@$post['string'],@$post['kategori']); //total row
                 $config['per_page'] = 10;  //show record per halaman
                 $config["uri_segment"] = 4;  // uri parameter
                 // style pagging
@@ -48,7 +48,8 @@ class Obat extends CI_Controller {
                 $config['last_tagl_close']  = '</span></li>';
                 $this->pagination->initialize($config);
                 $data['offset'] = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-                $data['hasil'] = $this->Admin_m->select_all_data_menu($config["per_page"], $data['offset'],@$post['string']);
+                $data['katgor'] = $this->Admin_m->select_all_data('kategori');
+                $data['hasil'] = $this->Admin_m->select_all_data_menu($config["per_page"], $data['offset'],@$post['string'],@$post['kategori']);
                 $data['page'] = 'admin/daftar-obat-v';
                 $data['pagination'] = $this->pagination->create_links();
                 $this->load->view('admin/dashboard-v',$data);
