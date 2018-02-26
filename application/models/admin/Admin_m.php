@@ -152,4 +152,20 @@ class Admin_m extends CI_Model
 		$query = $this->db->get('menu',$sampai,$dari);
 		return $query->result();
 	}
+	function count_data_member($string){
+		if (!empty($string)) {
+			$this->db->like('nm_member',$string);
+			$this->db->or_like('kode_member',$string);
+		}
+		return $this->db->get('member')->num_rows();
+	}
+	public function select_all_data_member($sampai,$dari,$string){
+		if (!empty($string)) {
+			$this->db->like('nm_member',$string);
+			$this->db->or_like('kode_member',$string);
+		}
+		$this->db->order_by('nm_member','asc');
+		$query = $this->db->get('member',$sampai,$dari);
+		return $query->result();
+	}
 }
