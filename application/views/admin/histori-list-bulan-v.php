@@ -40,6 +40,14 @@
 						</tr>
 						<?php $no++; ?>
 					<?php endforeach ?>
+					<?php $harga = 0 ?>
+					<?php foreach ($hasil as $data): ?>
+						<?php $harga = $data->total + (int)@$harga; ?>
+					<?php endforeach; ?>
+					<tr>
+						<td colspan="2">Total</td>
+						<td><b ><?php echo 'Rp.'.$harga; ?></b></td>
+					</tr>
 				<?php else: ?>
 					<tr>
 						<td colspan="3">Belum ada data tersimpan</td>
