@@ -135,17 +135,23 @@ class Admin_m extends CI_Model
 		$this->db->where($field, $id);
 		$this->db->delete($table);
 	}
-	function count_data_menu($string){
+	function count_data_menu($string,$kat){
 		if (!empty($string)) {
 			$this->db->like('nama_menu',$string);
 			$this->db->or_like('kode_menu',$string);
 		}
+		if (!empty($kat)) {
+			$this->db->where('menu.id_kategori',$kat);
+		}
 		return $this->db->get('menu')->num_rows();
 	}
-	public function select_all_data_menu($sampai,$dari,$string){
+	public function select_all_data_menu($sampai,$dari,$string,$kat){
 		if (!empty($string)) {
 			$this->db->like('nama_menu',$string);
 			$this->db->or_like('kode_menu',$string);
+		}
+		if (!empty($kat)) {
+			$this->db->where('menu.id_kategori',$kat);
 		}
 		$this->db->join('kategori', 'kategori.id_kategori = menu.id_kategori');
 		$this->db->order_by('nama_menu','asc');

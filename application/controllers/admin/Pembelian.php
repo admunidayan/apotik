@@ -83,7 +83,7 @@ class Pembelian extends CI_Controller {
                 $data['users'] = $this->ion_auth->user()->row();
                 $data['aside'] = 'nav/nav';
                 $config['base_url'] = base_url('index.php/admin/pembelian/nota/'.$nota.'/');
-                $config['total_rows'] = $this->Admin_m->count_data_menu(@$post['string']); //total row
+                $config['total_rows'] = $this->Admin_m->count_data_menu(@$post['string'],@$post['kategori']); //total row
                 $config['per_page'] = 10;  //show record per halaman
                 $config["uri_segment"] = 5;  // uri parameter
                 $config['first_link']       = 'Pertama';
@@ -107,7 +107,8 @@ class Pembelian extends CI_Controller {
                 $this->pagination->initialize($config);
                 $data['offset'] = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
                 $data['detnota'] = $this->Admin_m->detail_data_nota($nota);
-                $data['menu'] = $this->Admin_m->select_all_data_menu($config["per_page"], $data['offset'],@$post['string']);
+                $data['katgor'] = $this->Admin_m->select_all_data('kategori');
+                $data['menu'] = $this->Admin_m->select_all_data_menu($config["per_page"], $data['offset'],@$post['string'],@$post['kategori']);
                 $data['beli'] = $this->Admin_m->list_data_beli($nota);
                 $data['pagination'] = $this->pagination->create_links();
                 $data['page'] = 'admin/nota-v';
@@ -227,8 +228,8 @@ class Pembelian extends CI_Controller {
                         $this->session->set_flashdata('message2', $pesan );
                         redirect(base_url('index.php/admin/pembelian/nota/'.$nota));
                     }else{
-                        $pesan = 'Member '.$post['idmember']. ' tidak terdaftar, perhatikan penulisan atau daftarkan terlebih dahulu member';
-                        $this->session->set_flashdata('message2', $pesan );
+                        $pesan = 'Member '.$post['idmember']. ' tidak terdaftar, perhatikan penulisan.';
+                        $this->session->set_flashdata('error2', $pesan );
                         redirect(base_url('index.php/admin/pembelian/nota/'.$nota));
                     }
                 }else{
