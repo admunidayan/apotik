@@ -29,6 +29,11 @@
 			<small id="email" class="form-text text-muted">Gunakan penulisan email yang benar</small>
 		</div>
 		<div class="form-group">
+			<label for="password">Password Saat Ini</label>
+			<div class="form-control border border-success text-success"><?php echo $detail->repassword; ?></div>
+			<small id="password" class="form-text text-muted">Password saat ini yang sedang digunakan</small>
+		</div>
+		<div class="form-group">
 			<label for="password">Password</label>
 			<input type="password" class="form-control" name="password" id="password" placeholder="*******">
 			<small id="password" class="form-text text-muted">Minimal 8 karakter atau lebih menggunakan kombinasi huruf dan angka</small>

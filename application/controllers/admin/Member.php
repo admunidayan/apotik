@@ -46,6 +46,7 @@ class Member extends CI_Controller {
                 $config['last_tagl_close']  = '</span></li>';
                 $this->pagination->initialize($config);
                 $data['offset'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+                $data['pagination'] = $this->pagination->create_links();
 				$data['hasil'] = $this->Admin_m->select_all_data_member($config["per_page"], $data['offset'],@$post['string']);
 				$this->load->view('admin/dashboard-v',$data);
 			}
@@ -127,21 +128,14 @@ class Member extends CI_Controller {
 				$this->session->set_flashdata('message', $pesan );
 				redirect(base_url('index.php/admin/dashboard'));
 			}else{
-				$data['title'] = 'Edit - '.$this->ion_auth->user($id)->row()->username;
+				$detail = $this->Admin_m->detail_data_order('member','id_member',$id);
+				$data['title'] = 'Edit - '.$detail->nm_member;
 				$data['infopt'] = $this->Admin_m->info_pt(1);
 				$data['users'] = $this->ion_auth->user()->row();
 				$data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
 				$data['aside'] = 'nav/nav';
-				$data['groups'] = $this->ion_auth->groups()->result();
-				$data['usergroups'] = array();
-				if($usergroups = $this->ion_auth->get_users_groups($id)->result()){
-					foreach($usergroups as $group)
-					{
-						$data['usergroups'][] = $group->id;
-					}
-				}
-				$data['detail'] = $this->ion_auth->user($id)->row();
-				$data['page'] = 'admin/edit-users-v';
+				$data['detail'] = $detail;
+				$data['page'] = 'admin/edit-member-v';
 				$this->load->view('admin/dashboard-v',$data);
 			}
 		}else{
@@ -158,7 +152,8 @@ class Member extends CI_Controller {
 				$this->session->set_flashdata('message', $pesan );
 				redirect(base_url('index.php/admin/dashboard'));
 			}else{
-				$id = $this->input->post('id');
+				$post = $this->input->post();
+				$id = $this->input->post('id_member');
 				$data = array(
 					'nm_member' => $post['nm_member'],
 					'tgl_lahir_member' => $post['tgl_lahir_member_thn'].'-'.$post['tgl_lahir_member_bln'].'-'.$post['tgl_lahir_member_hr'],
@@ -185,7 +180,7 @@ class Member extends CI_Controller {
 			$this->session->set_flashdata('message', $pesan );
 			redirect(base_url('index.php/admin/login'));
 		}else{
-			$this->ion_auth->delete_user($id);
+			$this->Admin_m->delete('member','id_member',$id);
 			$this->session->set_flashdata('message', 'users berhasil di hapus');
 			redirect(base_url('index.php/admin/member'));
 		}

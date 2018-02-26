@@ -19,7 +19,12 @@
 					<form action="<?php echo base_url('index.php/admin/pembelian/input_menu/'.$detnota->tgl_nota) ?>" method="post">
 						<tr>
 							<td><input type="hidden" name="id_nota" value="<?php echo $detnota->id_nota ?>"><?php echo $no; ?></td>
-							<td><input type="hidden" name="id_menu" value="<?php echo $data->id_menu ?>"><?php echo strtoupper($data->nama_menu); ?></td>
+							<td>
+								<input type="hidden" name="id_menu" value="<?php echo $data->id_menu ?>"><?php echo strtoupper($data->nama_menu); ?>
+								<?php if ($data->diskon !== '0'): ?>
+									<span style="color: green">- dskn <?php echo $data->diskon.' %'; ?></span>
+								<?php endif ?>
+							</td>
 							<td><?php echo 'Rp.'.$data->harga_satuan; ?></td>
 							<td><?php echo $data->stok; ?></td>
 							<td><button type="submit" name="submit" value="submit" class="btn btn-outline-success btn-sm"><i class="fa fa-shopping-basket"></i></button></td>
@@ -38,48 +43,67 @@
 	</div>
 	<div class="col-md-6">
 		<div style="margin-top: 14px; background-color: white;padding: 30px">
-			<h5 class="text-info">Masukan Member</h5><hr/>
-			<div class="form-group">
-				<input type="text" class="form-control" id="idmember" aria-describedby="idmember" placeholder="Masukan Id Member">
-				<small id="idmember" class="form-text text-muted">jika kode benar, sistem akan otomatis merubah nota menjadi nota member</small>
-			</div>
+			<h5 class="text-info">Member</h5><hr/>
+			<?php if ($detnota->id_member == 0): ?>
+				<form action="<?php echo base_url('index.php/admin/pembelian/insert_member_to_nota/'.$detnota->id_nota) ?>" method="post">
+					<div class="form-group">
+						<input type="text" class="form-control" id="idmember" name="idmember" aria-describedby="idmember" placeholder="Masukan Id Member">
+						<small id="idmember" class="form-text text-muted">jika kode benar, sistem akan otomatis merubah nota menjadi nota member</small>
+					</div>
+				</form>
+			<?php else: ?>
+				<?php $member = $this->Admin_m->detail_data_order('member','id_member',$detnota->id_member); ?>
+				<table style="font-size: 13px;">
+					<tr>
+						<td class="kirikanan">NAMA</td>
+						<td class="kirikanan">:</td>
+						<td class="kirikanan"><?php echo $member->nm_member; ?></td>
+					</tr>
+					<tr>
+						<td class="kirikanan">ID Member</td>
+						<td class="kirikanan">:</td>
+						<td class="kirikanan"><?php echo $member->kode_member; ?></td>
+					</tr>
+				</table>
+				<a href="<?php echo base_url('index.php/admin/pembelian/delete_member_nota/'.$detnota->id_nota) ?>" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i> Hapus/ubah member</a>
+			<?php endif ?>
 		</div>
 		<div style="margin-top: 14px; background-color: white;padding: 30px">
 			<h5 class="text-info">Detail Pemesanan</h5><hr/>
-			<table>
+			<table style="font-size: 13px;">
 				<tr>
-					<td>Tanggal</td>
-					<td>:</td>
-					<td><?php echo $detnota->tgl_nota; ?></td>
+					<td class="kirikanan">Tanggal</td>
+					<td class="kirikanan">:</td>
+					<td class="kirikanan"><?php echo $detnota->tgl_nota; ?></td>
 				</tr>
 				<tr>
-					<td>Waktu</td>
-					<td>:</td>
-					<td><?php echo $detnota->jam_nota; ?></td>
+					<td class="kirikanan">Waktu</td>
+					<td class="kirikanan">:</td>
+					<td class="kirikanan"><?php echo $detnota->jam_nota; ?></td>
 				</tr>
 				<tr>
-					<td>No Nota</td>
-					<td>:</td>
-					<td><?php echo $detnota->id_nota; ?></td>
+					<td class="kirikanan">No Nota</td>
+					<td class="kirikanan">:</td>
+					<td class="kirikanan"><?php echo $detnota->id_nota; ?></td>
 				</tr>
 				<tr>
-					<td>Kasir</td>
-					<td>:</td>
-					<td><?php echo $detnota->username; ?></td>
+					<td class="kirikanan">Kasir</td>
+					<td class="kirikanan">:</td>
+					<td class="kirikanan"><?php echo $detnota->username; ?></td>
 				</tr>
 				<tr>
-					<td>Status</td>
-					<td>:</td>
-					<td><?php echo $detnota->nm_status; ?></td>
+					<td class="kirikanan">Status</td>
+					<td class="kirikanan">:</td>
+					<td class="kirikanan"><?php echo $detnota->nm_status; ?></td>
 				</tr>
 				<tr>
-					<td>Member</td>
-					<td>:</td>
-					<td>
+					<td class="kirikanan">Member</td>
+					<td class="kirikanan">:</td>
+					<td class="kirikanan">
 						<?php if ($detnota->id_member == 0): ?>
 							Non-member
 						<?php else: ?>
-							Member
+							<?php echo $this->Admin_m->detail_data_order('member','id_member',$detnota->id_member)->nm_member ?>
 						<?php endif ?>
 					</td>
 				</tr>

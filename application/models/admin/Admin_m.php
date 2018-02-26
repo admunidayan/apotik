@@ -164,7 +164,7 @@ class Admin_m extends CI_Model
 			$this->db->like('nm_member',$string);
 			$this->db->or_like('kode_member',$string);
 		}
-		$this->db->order_by('nm_member','asc');
+		$this->db->order_by('kode_member','desc');
 		$query = $this->db->get('member',$sampai,$dari);
 		return $query->result();
 	}

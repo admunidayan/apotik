@@ -16,8 +16,9 @@
 			<td>KODE</td>
 			<td>NAMA</td>
 			<td>NIK</td>
-			<td>TGL BUAT</td>
-			<td>STATUS</td>
+			<td>TMPT LAHIR</td>
+			<td>TGL LAHIR</td>
+			<td>TGL CREATE</td>
 			<td colspan="2">ACTION</td>
 		</tr>
 		<?php $no=1 ?>
@@ -27,14 +28,21 @@
 				<td><?php echo $data->kode_member; ?></td>
 				<td><?php echo $data->nm_member; ?></td>
 				<td><?php echo $data->nik_member; ?></td>
+				<td><?php echo $data->tmpt_lahir_member; ?></td>
+				<td><?php echo $data->tgl_lahir_member; ?></td>
 				<td><?php echo $data->tgl_create; ?></td>
-				<td><?php echo $data->status_member; ?></td>
-				<td><a class="text-info" href="<?php echo base_url('index.php/admin/member/edit/'.$data->id_member) ?>">edit</a></td>
-				<td><a class="text-info" href="<?php echo base_url('index.php/admin/member/delete/'.$data->id_member) ?>">hapus</a></td>
+				<td><a class="text-info" href="<?php echo base_url('index.php/admin/member/edit/'.$data->id_member) ?>"><i class="fa fa-pencil text-info"></i></a></td>
+				<td><a class="text-info" href="<?php echo base_url('index.php/admin/member/delete/'.$data->id_member) ?>"><i class="fa fa-trash text-danger"></i></a></td>
 			</tr>
 			<?php $no++ ?>
 		<?php endforeach ?>
 	</table>
+	<div class="row">
+		<div class="col">
+			<!--Tampilkan pagination-->
+			<?php echo $pagination; ?>
+		</div>
+	</div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="addobat" tabindex="-1" role="dialog" aria-labelledby="addobat" aria-hidden="true">

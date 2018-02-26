@@ -193,8 +193,97 @@ class Pembelian extends CI_Controller {
             redirect(base_url('index.php/login'));
         }
     }
+    public function insert_member_to_nota($nota){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $post=$this->input->post();
+                $daftarmenu = $this->Admin_m->select_all_data_order('menu_to_nota','id_nota',$nota);
+                if ($daftarmenu == TRUE) {
+                    $detail = $this->Admin_m->detail_data_order('member','kode_member',$post['idmember']);
+                    if ($detail == TRUE) {
+                        $updatemember = array(
+                            'id_member' =>$detail->id_member,
+                        );
+                        $this->Admin_m->update('nota','id_nota',$nota,$updatemember);
+                        foreach ($daftarmenu as $data) {
+                            $menu = $this->Admin_m->detail_data_order('menu','id_menu',$data->id_menu);
+                            if ($menu->diskon !== '0') {
+                                $hargadiskon = $menu->harga_member*$menu->diskon/100;
+                                $harusbayar = $menu->harga_member-$hargadiskon;
+                            }else{
+                                $harusbayar = $menu->harga_member;
+                            }
+                            $updtmnnota = array(
+                                'total_bayar' =>$data->jml_menu*$harusbayar,
+                            );
+                            $this->Admin_m->update('menu_to_nota','id_menu_to_nota',$data->id_menu_to_nota,$updtmnnota);
+                        }
+                        $pesan = 'Memeber berhasil ditambahkan kedalam nota dan daftar harga telah di ubah menjadi harga member';
+                        $this->session->set_flashdata('message2', $pesan );
+                        redirect(base_url('index.php/admin/pembelian/nota/'.$nota));
+                    }else{
+                        $pesan = 'Member '.$post['idmember']. ' tidak terdaftar, perhatikan penulisan atau daftarkan terlebih dahulu member';
+                        $this->session->set_flashdata('message2', $pesan );
+                        redirect(base_url('index.php/admin/pembelian/nota/'.$nota));
+                    }
+                }else{
+                    $pesan = 'Belum ada menu yang di masukan di dalam nota, masukan menu terlebih dahulu agar bisa menggunakan fitur tambah member';
+                    $this->session->set_flashdata('message2', $pesan );
+                    redirect(base_url('index.php/admin/pembelian/nota/'.$nota));
+                }
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
     public function delete_nota($nota){
         $cek = $this->Admin_m->select_all_data_order('menu_to_nota','id_nota',$nota);
+        if ($cek == TRUE) {
+            foreach ($cek as $data) {
+                $detail = $this->Admin_m->detail_data_order('menu_to_nota','id_menu_to_nota',$data->id_menu_to_nota);
+                $menu = $this->Admin_m->detail_data_order('menu','id_menu',$detail->id_menu);
+                $updatestrok = array('stok' =>($menu->stok+$detail->jml_menu));
+                $this->Admin_m->update('menu','id_menu',$detail->id_menu,$updatestrok);
+                $this->Admin_m->delete('menu_to_nota','id_menu_to_nota',$data->id_menu_to_nota);
+            }
+            $this->Admin_m->delete('nota','id_nota',$nota);  
+        }else{
+            $this->Admin_m->delete('nota','id_nota',$nota);  
+        }
+        $pesan = 'Nota berhasil dihapus';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/admin/pembelian'));
+    }
+     public function delete_member_nota($nota){
+        $daftarmenu = $this->Admin_m->select_all_data_order('menu_to_nota','id_nota',$nota);
+        $updatemember = array(
+            'id_member' =>0,
+        );
+        $this->Admin_m->update('nota','id_nota',$nota,$updatemember);
+        foreach ($daftarmenu as $data) {
+            $menu = $this->Admin_m->detail_data_order('menu','id_menu',$data->id_menu);
+            if ($menu->diskon !== '0') {
+                $hargadiskon = $menu->harga_satuan*$menu->diskon/100;
+                $harusbayar = $menu->harga_satuan-$hargadiskon;
+            }else{
+                $harusbayar = $menu->harga_satuan;
+            }
+            $updtmnnota = array(
+                'total_bayar' =>$data->jml_menu*$harusbayar,
+            );
+            $this->Admin_m->update('menu_to_nota','id_menu_to_nota',$data->id_menu_to_nota,$updtmnnota);
+        }
+        $pesan = 'Memeber berhasil dihapus dan daftar harga telah di ubah menjadi harga reguler';
+        $this->session->set_flashdata('message2', $pesan );
+        redirect(base_url('index.php/admin/pembelian/nota/'.$nota));
+        
         if ($cek == TRUE) {
             foreach ($cek as $data) {
                 $detail = $this->Admin_m->detail_data_order('menu_to_nota','id_menu_to_nota',$data->id_menu_to_nota);
