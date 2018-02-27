@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 25 Feb 2018 pada 14.23
+-- Generation Time: 27 Feb 2018 pada 13.38
 -- Versi Server: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -68,8 +68,8 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
-(2, 'kasir', 'pegawai bagian pelayanan'),
-(3, 'member', 'pelanggan teregistrasi');
+(2, 'members', 'pegawai bagian pelayanan'),
+(3, 'pelanggan', 'pelanggan teregistrasi');
 
 -- --------------------------------------------------------
 
@@ -81,26 +81,24 @@ CREATE TABLE `info_pt` (
   `id_info_pt` int(11) NOT NULL,
   `nama_info_pt` varchar(114) DEFAULT NULL,
   `kode_pt` varchar(114) DEFAULT NULL,
-  `periode_wisuda` int(11) NOT NULL,
   `kontak_1` varchar(114) DEFAULT NULL,
   `kontak_2` varchar(114) DEFAULT NULL,
   `kontak_3` varchar(114) DEFAULT NULL,
   `kontak_4` varchar(114) DEFAULT NULL,
   `header_pt` varchar(114) NOT NULL,
+  `footer_pt` text,
   `alamat_pt` varchar(114) DEFAULT NULL,
   `slogan` varchar(114) DEFAULT NULL,
   `logo_pt` varchar(114) DEFAULT NULL,
-  `logo_kecil_pt` varchar(114) DEFAULT NULL,
-  `tahun` int(11) NOT NULL,
-  `periode` int(11) NOT NULL
+  `logo_kecil_pt` varchar(114) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `info_pt`
 --
 
-INSERT INTO `info_pt` (`id_info_pt`, `nama_info_pt`, `kode_pt`, `periode_wisuda`, `kontak_1`, `kontak_2`, `kontak_3`, `kontak_4`, `header_pt`, `alamat_pt`, `slogan`, `logo_pt`, `logo_kecil_pt`, `tahun`, `periode`) VALUES
-(1, 'Apotek', 'utama', 0, '-', '-', '000-1111-2222', '1111-11111-1111', '', 'alamatnya disini', 'Akhlak dan Budaya', 'logo.png', 'logo.png', 2017, 1);
+INSERT INTO `info_pt` (`id_info_pt`, `nama_info_pt`, `kode_pt`, `kontak_1`, `kontak_2`, `kontak_3`, `kontak_4`, `header_pt`, `footer_pt`, `alamat_pt`, `slogan`, `logo_pt`, `logo_kecil_pt`) VALUES
+(1, 'Green Skin Care', '123123123123', '0823456765', '0823456764', '0823456762', '08234567643', '', 'Terima kasih atas kunjungan anda, silahkan mampir lagi nanti :)', 'Jalan Sultan Hasanuddin No 26. Baubau', 'Green Skin Care', 'logo-green-skin-care-20180226-1519645545.png', 'logo.png');
 
 -- --------------------------------------------------------
 
@@ -142,6 +140,33 @@ CREATE TABLE `login_attempts` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `member`
+--
+
+CREATE TABLE `member` (
+  `id_member` int(11) NOT NULL,
+  `nm_member` varchar(114) NOT NULL,
+  `tgl_lahir_member` varchar(50) NOT NULL,
+  `tmpt_lahir_member` varchar(50) NOT NULL,
+  `kode_member` varchar(8) NOT NULL,
+  `hp_member` varchar(15) NOT NULL,
+  `nik_member` varchar(114) NOT NULL,
+  `tgl_create` varchar(20) NOT NULL,
+  `alamat_member` varchar(114) NOT NULL,
+  `status_member` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `member`
+--
+
+INSERT INTO `member` (`id_member`, `nm_member`, `tgl_lahir_member`, `tmpt_lahir_member`, `kode_member`, `hp_member`, `nik_member`, `tgl_create`, `alamat_member`, `status_member`) VALUES
+(1, 'Reza Rafiq MZ', '1993-12-24', 'BAUBAU', '00000001', '082395606666', '1234543132456', '2018-02-26', 'Jalan Sultan Hasanuddin 26 Baubau, Batulo', 1),
+(2, 'Krisnilda', '1993-05-07', 'Lombok', '00000002', '082395606666', '343242392394293', '2018-02-26', 'Jalan Gadjha Madda, Pimpi Atas', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `menu`
 --
 
@@ -162,18 +187,18 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id_menu`, `nama_menu`, `kode_menu`, `id_kategori`, `stok`, `harga_satuan`, `harga_member`, `diskon`, `ket_menu`) VALUES
-(1, 'Parasetamol', '123123', 1, 28, 4000, 0, 0, 'obat'),
-(2, 'Livron B Plex', '5345345', 1, 85, 10000, 0, 0, 'obat'),
-(3, 'Asam Ursodeoksikolat', '2345345', 3, 46, 5000, 0, 0, '-'),
-(4, 'Isosorbide Dinitrate', '564634536', 2, 45, 10000, 0, 0, '-'),
-(6, 'ACARBOSE 100MG DX', '2134232', 1, 53, 21000, 0, 0, '-'),
-(7, 'ALLOHEX TAB', '123123', 2, 77, 36000, 0, 0, '-'),
-(8, 'ALOFAR 300', '12341234', 3, 48, 3700, 0, 0, '-'),
-(9, 'AMOXICILIN 500 PHARMA', '343242', 1, 588, 4000, 0, 0, '-'),
-(10, 'AMOXICILLIN 500 MG MERSI', '1231234', 1, 774, 4000, 0, 0, '-'),
-(11, 'AMOXICILLIN DS 125MG/5ML 60 ML', '234234', 1, 786, 4000, 0, 0, '-'),
-(12, 'AZITHROMYCIN', '12312414', 1, 552, 176000, 0, 0, '-'),
-(13, 'SBW', '123456234', 1, 8, 125000, 0, 50, '-');
+(1, 'Parasetamol', '123123', 1, 28, 4000, 4000, 0, 'obat'),
+(2, 'Livron B Plex', '5345345', 1, 85, 10000, 9000, 0, 'obat'),
+(3, 'Asam Ursodeoksikolat', '2345345', 3, 46, 5000, 5000, 0, '-'),
+(4, 'Isosorbide Dinitrate', '564634536', 2, 45, 10000, 9000, 0, '-'),
+(6, 'ACARBOSE 100MG DX', '2134232', 1, 51, 21000, 19000, 0, '-'),
+(7, 'ALLOHEX TAB', '123123', 2, 76, 36000, 32000, 0, '-'),
+(8, 'ALOFAR 300', '12341234', 3, 47, 3700, 3700, 0, '-'),
+(9, 'AMOXICILIN 500 PHARMA', '343242', 1, 588, 4000, 4000, 0, '-'),
+(10, 'AMOXICILLIN 500 MG MERSI', '1231234', 1, 774, 4000, 4000, 0, '-'),
+(11, 'AMOXICILLIN DS 125MG/5ML 60 ML', '234234', 1, 786, 4000, 4000, 0, '-'),
+(12, 'AZITHROMYCIN', '12312414', 1, 551, 176000, 150000, 0, '-'),
+(13, 'SBW', '123456234', 1, 6, 125000, 100000, 50, '-');
 
 -- --------------------------------------------------------
 
@@ -246,11 +271,18 @@ INSERT INTO `menu_to_nota` (`id_menu_to_nota`, `id_nota`, `id_menu`, `jml_menu`,
 (51, 19, 7, 1, '2018-02-19', 36000, 2),
 (52, 19, 8, 2, '2018-02-19', 7400, 2),
 (53, 20, 13, 1, '2018-02-19', 120000, 2),
-(54, 21, 6, 1, '2018-02-25', 21000, 1),
-(55, 21, 7, 1, '2018-02-25', 36000, 1),
-(56, 21, 8, 1, '2018-02-25', 3700, 1),
-(57, 21, 9, 1, '2018-02-25', 4000, 1),
-(61, 21, 13, 1, '2018-02-25', 62500, 1);
+(54, 21, 6, 1, '2018-02-25', 21000, 2),
+(55, 21, 7, 1, '2018-02-25', 36000, 2),
+(56, 21, 8, 1, '2018-02-25', 3700, 2),
+(57, 21, 9, 1, '2018-02-25', 4000, 2),
+(61, 21, 13, 1, '2018-02-25', 62500, 2),
+(67, 24, 12, 1, '2018-02-26', 150000, 2),
+(68, 24, 6, 1, '2018-02-26', 19000, 2),
+(69, 24, 13, 1, '2018-02-26', 50000, 2),
+(74, 26, 6, 1, '2018-02-26', 21000, 2),
+(75, 26, 7, 1, '2018-02-26', 36000, 2),
+(76, 26, 8, 1, '2018-02-26', 3700, 2),
+(77, 26, 13, 1, '2018-02-26', 62500, 2);
 
 -- --------------------------------------------------------
 
@@ -261,6 +293,7 @@ INSERT INTO `menu_to_nota` (`id_menu_to_nota`, `id_nota`, `id_menu`, `jml_menu`,
 CREATE TABLE `nota` (
   `id_nota` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `id_member` int(11) NOT NULL DEFAULT '0',
   `tgl_nota` date DEFAULT NULL,
   `jam_nota` time NOT NULL,
   `total_bayar_nota` int(11) NOT NULL,
@@ -274,28 +307,31 @@ CREATE TABLE `nota` (
 -- Dumping data untuk tabel `nota`
 --
 
-INSERT INTO `nota` (`id_nota`, `id_user`, `tgl_nota`, `jam_nota`, `total_bayar_nota`, `jumlah_bayar`, `kembalian`, `ket_nota`, `id_status`) VALUES
-(1, 1, '2018-02-16', '00:00:00', 0, 0, 0, NULL, 1),
-(2, 1, '2018-02-16', '00:00:00', 0, 0, 0, NULL, 1),
-(3, 1, '2018-02-17', '00:00:00', 0, 0, 0, NULL, 1),
-(4, 1, '2018-02-17', '00:00:00', 0, 0, 0, NULL, 1),
-(5, 1, '2018-02-18', '00:00:00', 15000, 15000, 0, NULL, 2),
-(6, 1, '2018-02-18', '00:00:00', 24000, 24000, 0, NULL, 2),
-(7, 1, '2018-02-18', '01:01:40', 20000, 20000, 0, NULL, 2),
-(8, 1, '2018-02-18', '01:47:47', 352000, 352000, 0, NULL, 2),
-(9, 1, '2018-02-18', '01:47:52', 176000, 176000, 0, NULL, 2),
-(10, 1, '2018-02-18', '01:47:54', 11700, 11700, 0, NULL, 2),
-(11, 1, '2018-02-18', '01:47:56', 43700, 43700, 0, NULL, 2),
-(12, 1, '2018-02-18', '01:48:02', 18000, 18000, 0, NULL, 2),
-(13, 1, '2018-02-18', '01:48:04', 11700, 11700, 0, NULL, 2),
-(14, 1, '2018-02-18', '01:48:06', 21000, 21000, 0, NULL, 2),
-(15, 1, '2018-02-18', '01:48:08', 65000, 65000, 0, NULL, 2),
-(16, 1, '2018-02-18', '01:48:11', 33000, 33000, 0, NULL, 2),
-(17, 1, '2018-02-18', '10:27:39', 29000, 29000, 0, NULL, 2),
-(18, 1, '2018-02-18', '19:38:43', 201000, 210000, 9000, NULL, 2),
-(19, 1, '2018-02-19', '11:00:46', 64400, 64400, 0, NULL, 2),
-(20, 1, '2018-02-19', '22:06:21', 120000, 120000, 0, NULL, 2),
-(21, 1, '2018-02-25', '16:59:18', 0, 0, 0, NULL, 1);
+INSERT INTO `nota` (`id_nota`, `id_user`, `id_member`, `tgl_nota`, `jam_nota`, `total_bayar_nota`, `jumlah_bayar`, `kembalian`, `ket_nota`, `id_status`) VALUES
+(1, 1, 0, '2018-02-16', '00:00:00', 0, 0, 0, NULL, 1),
+(2, 1, 0, '2018-02-16', '00:00:00', 0, 0, 0, NULL, 1),
+(3, 1, 0, '2018-02-17', '00:00:00', 0, 0, 0, NULL, 1),
+(4, 1, 0, '2018-02-17', '00:00:00', 0, 0, 0, NULL, 1),
+(5, 1, 0, '2018-02-18', '00:00:00', 15000, 15000, 0, NULL, 2),
+(6, 1, 0, '2018-02-18', '00:00:00', 24000, 24000, 0, NULL, 2),
+(7, 1, 0, '2018-02-18', '01:01:40', 20000, 20000, 0, NULL, 2),
+(8, 1, 0, '2018-02-18', '01:47:47', 352000, 352000, 0, NULL, 2),
+(9, 1, 0, '2018-02-18', '01:47:52', 176000, 176000, 0, NULL, 2),
+(10, 1, 0, '2018-02-18', '01:47:54', 11700, 11700, 0, NULL, 2),
+(11, 1, 0, '2018-02-18', '01:47:56', 43700, 43700, 0, NULL, 2),
+(12, 1, 0, '2018-02-18', '01:48:02', 18000, 18000, 0, NULL, 2),
+(13, 1, 0, '2018-02-18', '01:48:04', 11700, 11700, 0, NULL, 2),
+(14, 1, 0, '2018-02-18', '01:48:06', 21000, 21000, 0, NULL, 2),
+(15, 1, 0, '2018-02-18', '01:48:08', 65000, 65000, 0, NULL, 2),
+(16, 1, 0, '2018-02-18', '01:48:11', 33000, 33000, 0, NULL, 2),
+(17, 1, 0, '2018-02-18', '10:27:39', 29000, 29000, 0, NULL, 2),
+(18, 1, 0, '2018-02-18', '19:38:43', 201000, 210000, 9000, NULL, 2),
+(19, 1, 0, '2018-02-19', '11:00:46', 64400, 64400, 0, NULL, 2),
+(20, 1, 0, '2018-02-19', '22:06:21', 120000, 120000, 0, NULL, 2),
+(21, 1, 0, '2018-02-25', '16:59:18', 127200, 127200, 0, NULL, 2),
+(22, 1, 0, '2018-02-25', '23:24:50', 0, 0, 0, NULL, 1),
+(24, 1, 2, '2018-02-26', '13:34:28', 219000, 300000, 81000, NULL, 2),
+(26, 1, 0, '2018-02-26', '19:10:47', 123200, 123200, 0, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -383,7 +419,8 @@ INSERT INTO `tanggal` (`id_tanggal`, `kode`, `total`) VALUES
 (2, '2018-02-17', 0),
 (3, '2018-02-18', 1021100),
 (4, '2018-02-19', 184400),
-(5, '2018-02-25', 0);
+(5, '2018-02-25', 127200),
+(6, '2018-02-26', 342200);
 
 -- --------------------------------------------------------
 
@@ -418,7 +455,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `repassword`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `profile`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$08$LIBnsH4/BHMG694qev808.u3E8/kttNM1pnVDIKwseN.5UQyGIz/2', 'password', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1519563932, 1, 'Admin', 'istrator', 'ADMIN', '0', 'avatar.jpg'),
+(1, '127.0.0.1', 'administrator', '$2y$08$LIBnsH4/BHMG694qev808.u3E8/kttNM1pnVDIKwseN.5UQyGIz/2', 'password', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1519660739, 1, 'Admin', 'istrator', 'ADMIN', '0', 'avatar.jpg'),
 (2, '::1', 'ejhayoe', '$2y$08$WTg62wM1uPBqDpkLAlel7uIwUkuBlGFRzMO0gBfBjhNzMe5leLhEq', 'ejhayoe', NULL, 'ejhayoe@gmail.com', NULL, NULL, NULL, NULL, 1519035265, 1519053059, 1, 'Reza', 'Rafiq', 'Apotek', '123456789', 'avatar.jpg');
 
 -- --------------------------------------------------------
@@ -474,6 +511,12 @@ ALTER TABLE `kategori`
 --
 ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `member`
+--
+ALTER TABLE `member`
+  ADD PRIMARY KEY (`id_member`);
 
 --
 -- Indexes for table `menu`
@@ -562,6 +605,11 @@ ALTER TABLE `kategori`
 ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `member`
+--
+ALTER TABLE `member`
+  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
@@ -570,12 +618,12 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `menu_to_nota`
 --
 ALTER TABLE `menu_to_nota`
-  MODIFY `id_menu_to_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id_menu_to_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 --
 -- AUTO_INCREMENT for table `nota`
 --
 ALTER TABLE `nota`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `psikolog`
 --
@@ -595,7 +643,7 @@ ALTER TABLE `tahun`
 -- AUTO_INCREMENT for table `tanggal`
 --
 ALTER TABLE `tanggal`
-  MODIFY `id_tanggal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_tanggal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `users`
 --
