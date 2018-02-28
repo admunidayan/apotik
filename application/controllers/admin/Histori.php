@@ -158,6 +158,34 @@ class Histori extends CI_Controller {
         $this->session->set_flashdata('message', $pesan );
         redirect(base_url('index.php/admin/histori/hari/'.$tgl));
     }
+    public function cetak_hasil($tgl){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $post = $this->input->get();
+                $data['title'] = 'Cetak penghasilan tanggal '.$tgl;
+                $data['infopt'] = $this->Admin_m->info_pt(1);
+                $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
+                $data['users'] = $this->ion_auth->user()->row();
+                $data['aside'] = 'nav/nav';
+                $data['hasil'] = $this->Admin_m->list_pembelian_hari_ini($tgl);
+                $data['tanggal'] = $tgl;
+                $data['ukeluar'] = $this->Admin_m->select_all_data_order('uang_keluar','tgl_uang_keluar',$tgl);
+                $data['umasuk'] = $this->Admin_m->select_all_data_order('uang_masuk','tgl_uang_masuk',$tgl);
+                $data['brglaku'] = $this->Admin_m->select_barang_laku($tgl);
+                // pagging setting
+                $this->load->view('admin/cetak-hasil-v',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
     public function nota($nota){
         if ($this->ion_auth->logged_in()) {
             $level = array('admin','members');

@@ -152,6 +152,11 @@
 						<b><?php echo 'Rp.'.number_format($totalhasil,0,',','.'); ?></b>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="3" class="text-center">
+						<a href="<?php echo base_url('index.php/admin/histori/cetak_hasil/'.$tanggal) ?>" target="_blank" class="btn btn-outline-info btn-sm" style="width: 100%">Cetak hasil</a>
+					</td>
+				</tr>
 			</table>
 		</div>
 	</div>
