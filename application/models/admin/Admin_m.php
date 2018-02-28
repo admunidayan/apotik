@@ -11,6 +11,12 @@ class Admin_m extends CI_Model
 		$query = $this->db->get('info_pt');
 		return $query;
 	}
+	public function cek_barang_laku($menu,$tgl){
+		$this->db->where('id_menu', $menu);
+		$this->db->where('tgl_laku', $tgl);
+		$query = $this->db->get('laku_per_hari');
+		return $query->row();
+	}
 	public function Update_pt($id,$data){
 		$this->db->where('id_info_pt', $id);
 		$this->db->update('info_pt',$data);
@@ -80,6 +86,13 @@ class Admin_m extends CI_Model
 	public function detail_data($table,$field,$id){
 		$this->db->where($field, $id);
 		$query = $this->db->get($table);
+		return $query->result();
+	}
+	public function select_barang_laku($id){
+		$this->db->select('laku_per_hari.*,menu.id_menu,menu.nama_menu');
+		$this->db->where('tgl_laku',$id);
+		$this->db->join('menu', 'menu.id_menu = laku_per_hari.id_menu');
+		$query = $this->db->get('laku_per_hari');
 		return $query->result();
 	}
 	public function detail_data_order($table,$field,$id){

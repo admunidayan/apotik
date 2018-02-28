@@ -340,7 +340,21 @@ class Pembelian extends CI_Controller {
         foreach ($daftar_menu as $menu) {
             $data = array('id_status'=>2);
             $this->Admin_m->update('menu_to_nota','id_menu_to_nota',$menu->id_menu_to_nota,$data);
+
+            $ceklaku = $this->Admin_m->cek_barang_laku($menu->id_menu,$detail->tgl_nota);
+            if ($ceklaku == TRUE) {
+                $upjmlmenulaku = array('jml_laku' => $ceklaku->jml_laku+$menu->jml_menu);
+                $this->Admin_m->update('laku_per_hari','id_laku_per_hari',$ceklaku->id_laku_per_hari,$upjmlmenulaku);
+            }else{
+                $upjmlmenulaku = array(
+                    'id_menu' => $menu->id_menu,
+                    'tgl_laku' => $detail->tgl_nota,
+                    'jml_laku' => $menu->jml_menu,
+                );
+                $this->Admin_m->create('laku_per_hari',$upjmlmenulaku);
+            }
         }
+        // update nota
         $notanya = array(
             'id_status' =>2,
             'total_bayar_nota' => $total,
@@ -348,7 +362,7 @@ class Pembelian extends CI_Controller {
             'kembalian' => $this->input->post('jumlah_bayar') - $total,
         );
         $this->Admin_m->update('nota','id_nota',$nota,$notanya);
-
+        // update penghasilan harian
         $tanggal = $this->Admin_m->detail_data_order('tanggal','kode',$detail->tgl_nota);
         $hasil_hari_ini = array('total' => $tanggal->total+$total,);
         $this->Admin_m->update('tanggal','id_tanggal',$tanggal->id_tanggal,$hasil_hari_ini);

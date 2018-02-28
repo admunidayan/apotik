@@ -85,7 +85,7 @@ class Histori extends CI_Controller {
             redirect(base_url('index.php/login'));
         }
     }
-    public function hari($tgl,$nota=0){
+    public function hari($tgl){
         if ($this->ion_auth->logged_in()) {
             $level = array('admin','members');
             if (!$this->ion_auth->in_group($level)) {
@@ -101,10 +101,33 @@ class Histori extends CI_Controller {
                 $data['aside'] = 'nav/nav';
                 $data['hasil'] = $this->Admin_m->list_pembelian_hari_ini($tgl);
                 $data['tanggal'] = $tgl;
-                $data['idnota'] = $nota;
-                $data['detnota'] = $this->Admin_m->detail_data_nota($nota);
-                $data['harnota'] =$this->Admin_m->list_data_beli($nota);
+                $data['brglaku'] = $this->Admin_m->select_barang_laku($tgl);
                 $data['page'] = 'admin/histori-hari-v';
+                // pagging setting
+                $this->load->view('admin/dashboard-v',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function nota($nota){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $data['title'] = 'detail nota '.$nota;
+                $data['infopt'] = $this->Admin_m->info_pt(1);
+                $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
+                $data['users'] = $this->ion_auth->user()->row();
+                $data['aside'] = 'nav/nav';
+                $data['detnota'] = $this->Admin_m->detail_data_nota($nota);
+                $data['beli'] = $this->Admin_m->list_data_beli($nota);
+                $data['page'] = 'admin/detail-nota-v';
                 // pagging setting
                 $this->load->view('admin/dashboard-v',$data);
             }
