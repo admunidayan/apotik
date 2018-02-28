@@ -3,7 +3,7 @@
 <head>
 	<title><?php echo $title; ?></title>
 </head>
-<body>
+<body onload="window.print();">
 	<table width="100%" style="border-bottom: 1px solid">
 		<tr>
 			<td colspan="2" style="text-align: center;border:1px solid"><h1>Hasil Pemasaran pada tanggal <?php echo $tanggal; ?></h1></td>
