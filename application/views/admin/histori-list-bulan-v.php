@@ -36,7 +36,7 @@
 						<tr>
 							<td><?php echo $no; ?></td>
 							<td><?php echo $data->kode;?></td>
-							<td><?php echo $data->total;?></td>
+							<td><?php echo 'Rp.'.number_format($data->total,0,',','.');?></td>
 						</tr>
 						<?php $no++; ?>
 					<?php endforeach ?>
@@ -45,8 +45,8 @@
 						<?php $harga = $data->total + (int)@$harga; ?>
 					<?php endforeach; ?>
 					<tr>
-						<td colspan="2">Total</td>
-						<td><b ><?php echo 'Rp.'.$harga; ?></b></td>
+						<td colspan="2"><b>Total</b></td>
+						<td><b ><?php echo 'Rp.'.number_format($harga,0,',','.'); ?></b></td>
 					</tr>
 				<?php else: ?>
 					<tr>

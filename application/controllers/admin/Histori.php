@@ -101,6 +101,8 @@ class Histori extends CI_Controller {
                 $data['aside'] = 'nav/nav';
                 $data['hasil'] = $this->Admin_m->list_pembelian_hari_ini($tgl);
                 $data['tanggal'] = $tgl;
+                $data['ukeluar'] = $this->Admin_m->select_all_data_order('uang_keluar','tgl_uang_keluar',$tgl);
+                $data['umasuk'] = $this->Admin_m->select_all_data_order('uang_masuk','tgl_uang_masuk',$tgl);
                 $data['brglaku'] = $this->Admin_m->select_barang_laku($tgl);
                 $data['page'] = 'admin/histori-hari-v';
                 // pagging setting
@@ -111,6 +113,50 @@ class Histori extends CI_Controller {
             $this->session->set_flashdata('message', $pesan );
             redirect(base_url('index.php/login'));
         }
+    }
+    public function create_uang_keluar($tgl)
+    {
+        $post = $this->input->post();
+        $data = array(
+            'keterangan' => $post['keterangan'],
+            'tgl_uang_keluar' => $tgl,
+            'jumlah' => $post['jumlah']
+            );
+        $this->Admin_m->create('uang_keluar',$data);
+
+        $cektgl = $this->Admin_m->detail_data_order('tanggal','kode',$tgl);
+        if (empty($cektgl)) {
+            $dttgl = array('kode' => $tgl,'total' =>trim($post['jumlah']));
+            $this->Admin_m->create('tanggal',$dttgl);
+        }else{
+            $datatgl = array('total' => $cektgl->total-$post['jumlah']);
+            $this->Admin_m->update('tanggal','id_tanggal',$cektgl->id_tanggal,$datatgl);
+        }
+        $pesan = 'Uang keluar berhasil dibuat';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/admin/histori/hari/'.$tgl));
+    }
+    public function create_uang_masuk($tgl)
+    {
+        $post = $this->input->post();
+        $data = array(
+            'keterangan' => $post['keterangan'],
+            'tgl_uang_masuk' => $tgl,
+            'jumlah' => $post['jumlah']
+            );
+        $this->Admin_m->create('uang_masuk',$data);
+
+        $cektgl = $this->Admin_m->detail_data_order('tanggal','kode',$tgl);
+         if (empty($cektgl)) {
+            $dttgl = array('kode' => $tgl,'total' =>trim($post['jumlah']));
+            $this->Admin_m->create('tanggal',$dttgl);
+        }else{
+            $datatgl = array('total' => $cektgl->total+$post['jumlah']);
+            $this->Admin_m->update('tanggal','id_tanggal',$cektgl->id_tanggal,$datatgl);
+        }
+        $pesan = 'Uang masuk berhasil dibuat';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/admin/histori/hari/'.$tgl));
     }
     public function nota($nota){
         if ($this->ion_auth->logged_in()) {

@@ -29,7 +29,7 @@
 				</tr>
 				<?php $no=$offset+1 ?>
 				<?php foreach ($menu as $data): ?>
-					<form action="<?php echo base_url('index.php/admin/pembelian/input_menu/'.$detnota->tgl_nota) ?>" method="post">
+					<form action="<?php echo base_url('index.php/admin/pembelian/input_menu/'.$detnota->tgl_nota.'/'.$detnota->id_nota) ?>" method="post">
 						<tr>
 							<td><input type="hidden" name="id_nota" value="<?php echo $detnota->id_nota ?>"><?php echo $no; ?></td>
 							<td>
@@ -38,7 +38,13 @@
 									<span style="color: green">- dskn <?php echo $data->diskon.' %'; ?></span>
 								<?php endif ?>
 							</td>
-							<td><?php echo 'Rp.'.$data->harga_satuan; ?></td>
+							<td>
+								<?php if ($detnota->id_member == '0'): ?>
+									<?php echo 'Rp.'.number_format($data->harga_satuan,0,',','.'); ?>
+								<?php else: ?>
+									<?php echo 'Rp.'.number_format($data->harga_member,0,',','.'); ?>
+								<?php endif ?>
+							</td>
 							<td><?php echo $data->stok; ?></td>
 							<?php if ($detnota->id_status == '1'): ?>
 								<td><button type="submit" name="submit" value="submit" class="btn btn-outline-success btn-sm"><i class="fa fa-shopping-basket"></i></button></td>
@@ -143,7 +149,7 @@
 				<?php $no=1 ?>
 				<table class="table table-sm" style="font-size: 12px;">
 					<?php foreach ($beli as $data): ?>
-						<form action="<?php echo base_url('index.php/admin/pembelian/update_menu_nota/'.$data->id_menu_to_nota) ?>" method="post">
+						<form action="<?php echo base_url('index.php/admin/pembelian/update_menu_nota/'.$data->id_menu_to_nota.'/'.$detnota->id_nota) ?>" method="post">
 							<tr>
 								<td><?php echo $no; ?></td>
 								<td>
@@ -161,9 +167,9 @@
 								</td>
 								<td>
 									<?php if ($data->diskon !== '0'): ?>
-										<span style="color: green"><?php echo 'Rp.'.$data->total_bayar; ?></span>
+										<span style="color: green"><?php echo 'Rp.'.number_format($data->total_bayar,0,',','.'); ?></span>
 									<?php else: ?>
-										<?php echo 'Rp.'.$data->total_bayar; ?>
+										<?php echo 'Rp.'.number_format($data->total_bayar,0,',','.'); ?>
 									<?php endif ?>
 								</td>
 								<?php if ($data->id_status == '1'): ?>
@@ -180,7 +186,7 @@
 							<?php foreach ($beli as $data): ?>
 								<?php $harga = $data->total_bayar + (int)@$harga; ?>
 							<?php endforeach; ?>
-							<b ><?php echo 'Rp.'.$harga; ?></b>
+							<b ><?php echo 'Rp.'.number_format($harga,0,',','.'); ?></b>
 						</td>
 						<td></td>
 					</tr>
@@ -194,11 +200,11 @@
 					<?php else: ?>
 						<tr>
 							<td colspan="3">Jumlah Bayar</td>
-							<td colspan="2"><b><?php echo 'Rp.'.$detnota->jumlah_bayar; ?></b></td>
+							<td colspan="2"><b><?php echo 'Rp.'.number_format($detnota->jumlah_bayar,0,',','.'); ?></b></td>
 						</tr>
 						<tr>
 							<td colspan="3">Kembalian</td>
-							<td colspan="2"><b><?php echo 'Rp.'.$detnota->kembalian; ?></b></td>
+							<td colspan="2"><b><?php echo 'Rp.'.number_format($detnota->kembalian,0,',','.'); ?></b></td>
 						</tr>
 						<tr>
 							<td colspan="5"><a href="<?php echo base_url('index.php/admin/pembelian/cetak_struk/'.$detnota->id_nota) ?>" class="btn btn-outline-info btn-sm" style="width: 100%" target="_blank">Cetak Struk</a></td>
@@ -225,7 +231,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="exampleInputEmail1">Jumlah yang harus di bayar</label>
-						<div class="form-control"><?php echo 'Rp.'.$harga; ?></div>
+						<div class="form-control"><?php echo 'Rp.'.number_format($harga,0,',','.'); ?></div>
 						<small id="emailHelp" class="form-text text-muted">Jumlah keseluruham dari jumlah biaya belanja</small>
 					</div>
 					<div class="form-group">

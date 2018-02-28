@@ -121,7 +121,7 @@ class Pembelian extends CI_Controller {
             redirect(base_url('index.php/login'));
         }
     }
-    public function input_menu($tanggal){
+    public function input_menu($tanggal,$idnota){
         if ($this->ion_auth->logged_in()) {
             $level = array('admin','members');
             if (!$this->ion_auth->in_group($level)) {
@@ -130,12 +130,22 @@ class Pembelian extends CI_Controller {
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
                 $post=$this->input->post();
+                $ceknota = $this->Admin_m->detail_data_order('nota','id_nota',$idnota);
                 $detail = $this->Admin_m->detail_data_order('menu','id_menu',$post['id_menu']);
-                if ($detail->diskon !== '0') {
-                    $hargadiskon = $detail->harga_satuan*$detail->diskon/100;
-                    $harusbayar = $detail->harga_satuan-$hargadiskon;
+                if ($ceknota->id_member == '0') {
+                    if ($detail->diskon !== '0') {
+                        $hargadiskon = $detail->harga_satuan*$detail->diskon/100;
+                        $harusbayar = $detail->harga_satuan-$hargadiskon;
+                    }else{
+                        $harusbayar = $detail->harga_satuan;
+                    }
                 }else{
-                    $harusbayar = $detail->harga_satuan;
+                    if ($detail->diskon !== '0') {
+                        $hargadiskon = $detail->harga_member*$detail->diskon/100;
+                        $harusbayar = $detail->harga_member-$hargadiskon;
+                    }else{
+                        $harusbayar = $detail->harga_member;
+                    }
                 }
                 $data = array(
                     'id_nota' =>$post['id_nota'],
@@ -146,6 +156,7 @@ class Pembelian extends CI_Controller {
                     'id_status' =>1
                 );
                 $this->Admin_m->create('menu_to_nota',$data);
+
                 $updatestrok = array('stok' =>$detail->stok-1);
                 $this->Admin_m->update('menu','id_menu',$post['id_menu'],$updatestrok);
                 $pesan = 'Menu '.$detail->nama_menu.' Berhasil ditambahkan';
@@ -158,7 +169,7 @@ class Pembelian extends CI_Controller {
             redirect(base_url('index.php/login'));
         }
     }
-    public function update_menu_nota($id){
+    public function update_menu_nota($id,$idnota){
         if ($this->ion_auth->logged_in()) {
             $level = array('admin','members');
             if (!$this->ion_auth->in_group($level)) {
@@ -167,13 +178,23 @@ class Pembelian extends CI_Controller {
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
                 $post=$this->input->post();
+                $ceknota = $this->Admin_m->detail_data_order('nota','id_nota',$idnota);
                 $detail = $this->Admin_m->detail_data_order('menu_to_nota','id_menu_to_nota',$id);
                 $menu = $this->Admin_m->detail_data_order('menu','id_menu',$detail->id_menu);
-                if ($menu->diskon !== '0') {
-                    $hargadiskon = $menu->harga_satuan*$menu->diskon/100;
-                    $harusbayar = $menu->harga_satuan-$hargadiskon;
+                if ($ceknota->id_member == '0') {
+                    if ($menu->diskon !== '0') {
+                        $hargadiskon = $menu->harga_satuan*$menu->diskon/100;
+                        $harusbayar = $menu->harga_satuan-$hargadiskon;
+                    }else{
+                        $harusbayar = $menu->harga_satuan;
+                    }
                 }else{
-                    $harusbayar = $menu->harga_satuan;
+                    if ($menu->diskon !== '0') {
+                        $hargadiskon = $menu->harga_member*$menu->diskon/100;
+                        $harusbayar = $menu->harga_member-$hargadiskon;
+                    }else{
+                        $harusbayar = $menu->harga_member;
+                    }
                 }
                 $data = array(
                     'jml_menu' =>$post['jml_menu'],
