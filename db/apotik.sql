@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 28 Feb 2018 pada 12.04
+-- Generation Time: 01 Mar 2018 pada 12.02
 -- Versi Server: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -142,9 +142,11 @@ CREATE TABLE `laku_per_hari` (
 --
 
 INSERT INTO `laku_per_hari` (`id_laku_per_hari`, `id_menu`, `tgl_laku`, `jml_laku`) VALUES
-(1, 6, '2018-02-28', 2),
-(2, 7, '2018-02-28', 1),
-(3, 8, '2018-02-28', 1);
+(1, 6, '2018-02-28', 3),
+(2, 7, '2018-02-28', 3),
+(3, 8, '2018-02-28', 1),
+(4, 13, '2018-02-28', 1),
+(5, 12, '2018-02-28', 6);
 
 -- --------------------------------------------------------
 
@@ -184,7 +186,17 @@ CREATE TABLE `member` (
 
 INSERT INTO `member` (`id_member`, `nm_member`, `tgl_lahir_member`, `tmpt_lahir_member`, `kode_member`, `hp_member`, `nik_member`, `tgl_create`, `alamat_member`, `status_member`) VALUES
 (1, 'Reza Rafiq MZ', '1993-12-24', 'BAUBAU', '00000001', '082395606666', '1234543132456', '2018-02-26', 'Jalan Sultan Hasanuddin 26 Baubau, Batulo', 1),
-(2, 'Krisnilda', '1993-05-07', 'Lombok', '00000002', '082395606666', '343242392394293', '2018-02-26', 'Jalan Gadjha Madda, Pimpi Atas', 1);
+(2, 'Krisnilda', '1993-05-07', 'Lombok', '00000002', '082395606666', '343242392394293', '2018-02-26', 'Jalan Gadjha Madda, Pimpi Atas', 1),
+(3, 'Yusrin Razikun', '1004-03-03', 'BAUBAU', '00000003', '082395601234', '432342436646778', '2018-03-01', 'jalan burasa tongka', 1),
+(4, 'Putri Ayu Lestari', '1994-05-13', 'BAUBAU', '00000004', '082395601234', '1234543132456', '2018-03-01', 'Jalan Perintis', 1),
+(5, 'Putri Agus Cahyawati', '1994-04-12', 'BAUBAU', '00000005', '082395601234', '1234543132456', '2018-03-01', 'jalan perintis', 1),
+(6, 'Sam Sahri Saharuddin', '1994-11-04', 'BAUBAU', '00000006', '082395601234', '1234543132456', '2018-03-01', 'BTN Medibrata blok B no 20', 1),
+(7, 'Chusnul Qhotimah', '1994-02-10', 'WANCI', '00000007', '082395601234', '1234543132456', '2018-03-01', 'jalan perintis', 1),
+(8, 'La Ode Azhar Annas', '1994-04-23', 'BAUBAU', '00000008', '082395601234', '759811231212', '2018-03-01', 'Bure', 1),
+(9, 'Ilham Gafur Aego', '1995-12-28', 'BAUBAU', '00000009', '082395601234', '78347234273472', '2018-03-01', 'Keraton atas', 1),
+(10, 'Annisyah', '1994-02-02', 'BAUBAU', '00000010', '082395601234', '7685844894859', '2018-03-01', 'jalan laode boha', 1),
+(11, 'Sitti Sarifa Rahma', '1994-09-11', 'BAUBAU', '00000011', '082395601234', '7685844894859', '2018-03-01', 'lamangga atas', 1),
+(12, 'Halim Putra Setiawan', '1994-04-04', 'BAUBAU', '00000012', '082395601234', '1234543132456', '2018-03-01', 'Pancarasa Baubau', 1);
 
 -- --------------------------------------------------------
 
@@ -213,14 +225,14 @@ INSERT INTO `menu` (`id_menu`, `nama_menu`, `kode_menu`, `id_kategori`, `stok`, 
 (2, 'Livron B Plex', '5345345', 1, 85, 10000, 9000, 0, 'obat'),
 (3, 'Asam Ursodeoksikolat', '2345345', 3, 46, 5000, 5000, 0, '-'),
 (4, 'Isosorbide Dinitrate', '564634536', 2, 45, 10000, 9000, 0, '-'),
-(6, 'ACARBOSE 100MG DX', '2134232', 1, 47, 21000, 19000, 3, '-'),
-(7, 'ALLOHEX TAB', '123123', 2, 74, 36000, 32000, 0, '-'),
-(8, 'ALOFAR 300', '12341234', 3, 46, 3700, 3700, 0, '-'),
+(6, 'ACARBOSE 100MG DX', '2134232', 1, 46, 21000, 19000, 3, '-'),
+(7, 'ALLOHEX TAB', '123123', 2, 71, 36000, 32000, 0, '-'),
+(8, 'ALOFAR 300', '12341234', 3, 45, 3700, 3700, 0, '-'),
 (9, 'AMOXICILIN 500 PHARMA', '343242', 1, 588, 4000, 4000, 0, '-'),
 (10, 'AMOXICILLIN 500 MG MERSI', '1231234', 1, 774, 4000, 4000, 0, '-'),
 (11, 'AMOXICILLIN DS 125MG/5ML 60 ML', '234234', 1, 786, 4000, 4000, 0, '-'),
-(12, 'AZITHROMYCIN', '12312414', 1, 551, 176000, 150000, 0, '-'),
-(13, 'SBW', '123456234', 1, 5, 125000, 100000, 50, '-');
+(12, 'AZITHROMYCIN', '12312414', 1, 541, 176000, 150000, 0, '-'),
+(13, 'SBW', '123456234', 1, 4, 125000, 100000, 50, '-');
 
 -- --------------------------------------------------------
 
@@ -312,7 +324,15 @@ INSERT INTO `menu_to_nota` (`id_menu_to_nota`, `id_nota`, `id_menu`, `jml_menu`,
 (82, 28, 8, 1, '2018-02-28', 3700, 2),
 (83, 29, 6, 1, '2018-02-28', 20370, 2),
 (84, 29, 7, 1, '2018-02-28', 36000, 2),
-(85, 30, 6, 1, '2018-02-28', 20370, 2);
+(85, 30, 6, 1, '2018-02-28', 20370, 2),
+(86, 31, 6, 1, '2018-02-28', 18430, 2),
+(87, 31, 7, 2, '2018-02-28', 64000, 2),
+(88, 31, 13, 1, '2018-02-28', 50000, 2),
+(89, 32, 12, 3, '2018-02-28', 450000, 2),
+(90, 33, 12, 3, '2018-02-28', 450000, 2),
+(91, 35, 7, 1, '2018-03-01', 32000, 1),
+(92, 35, 8, 1, '2018-03-01', 3700, 1),
+(93, 35, 12, 4, '2018-03-01', 600000, 1);
 
 -- --------------------------------------------------------
 
@@ -365,7 +385,12 @@ INSERT INTO `nota` (`id_nota`, `id_user`, `id_member`, `tgl_nota`, `jam_nota`, `
 (27, 1, 0, '2018-02-28', '12:58:34', 83500, 83500, 0, NULL, 2),
 (28, 1, 0, '2018-02-28', '17:06:19', 60070, 60070, 0, NULL, 2),
 (29, 1, 0, '2018-02-28', '17:30:34', 56370, 56370, 0, NULL, 2),
-(30, 1, 0, '2018-02-28', '17:31:37', 20370, 20370, 0, NULL, 2);
+(30, 1, 0, '2018-02-28', '17:31:37', 20370, 20370, 0, NULL, 2),
+(31, 1, 2, '2018-02-28', '19:37:34', 132430, 132430, 0, NULL, 2),
+(32, 1, 2, '2018-02-28', '20:27:23', 450000, 450000, 0, NULL, 2),
+(33, 2, 1, '2018-02-28', '23:15:02', 450000, 450000, 0, NULL, 2),
+(34, 1, 0, '2018-02-28', '23:42:50', 0, 0, 0, NULL, 1),
+(35, 1, 12, '2018-03-01', '08:17:08', 0, 0, 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -455,7 +480,50 @@ INSERT INTO `tanggal` (`id_tanggal`, `kode`, `total`) VALUES
 (4, '2018-02-19', 184400),
 (5, '2018-02-25', 127200),
 (6, '2018-02-26', 342200),
-(7, '2018-02-28', 220310);
+(7, '2018-02-28', 1300740),
+(8, '2018-03-01', 10000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `uang_keluar`
+--
+
+CREATE TABLE `uang_keluar` (
+  `id_uang_keluar` int(11) NOT NULL,
+  `tgl_uang_keluar` varchar(11) NOT NULL,
+  `keterangan` varchar(114) NOT NULL,
+  `jumlah` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `uang_keluar`
+--
+
+INSERT INTO `uang_keluar` (`id_uang_keluar`, `tgl_uang_keluar`, `keterangan`, `jumlah`) VALUES
+(1, '2018-02-28', 'beli galon', 7000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `uang_masuk`
+--
+
+CREATE TABLE `uang_masuk` (
+  `id_uang_masuk` int(11) NOT NULL,
+  `tgl_uang_masuk` varchar(11) NOT NULL,
+  `keterangan` varchar(114) NOT NULL,
+  `jumlah` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `uang_masuk`
+--
+
+INSERT INTO `uang_masuk` (`id_uang_masuk`, `tgl_uang_masuk`, `keterangan`, `jumlah`) VALUES
+(1, '2018-02-28', 'uang kasir', 50000),
+(2, '2018-02-28', 'kembalian bahan', 5000),
+(3, '2018-03-01', 'uang kasir', 10000);
 
 -- --------------------------------------------------------
 
@@ -490,8 +558,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `repassword`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `profile`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$08$LIBnsH4/BHMG694qev808.u3E8/kttNM1pnVDIKwseN.5UQyGIz/2', 'password', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1519812352, 1, 'Admin', 'istrator', 'ADMIN', '0', 'avatar.jpg'),
-(2, '::1', 'ejhayoe', '$2y$08$WTg62wM1uPBqDpkLAlel7uIwUkuBlGFRzMO0gBfBjhNzMe5leLhEq', 'ejhayoe', NULL, 'ejhayoe@gmail.com', NULL, NULL, NULL, NULL, 1519035265, 1519053059, 1, 'Reza', 'Rafiq', 'Apotek', '123456789', 'avatar.jpg');
+(1, '127.0.0.1', 'administrator', '$2y$08$LIBnsH4/BHMG694qev808.u3E8/kttNM1pnVDIKwseN.5UQyGIz/2', 'password', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1519901680, 1, 'Admin', 'istrator', 'ADMIN', '0', 'avatar.jpg'),
+(2, '::1', 'ejhayoe', '$2y$08$WTg62wM1uPBqDpkLAlel7uIwUkuBlGFRzMO0gBfBjhNzMe5leLhEq', 'ejhayoe', NULL, 'ejhayoe@gmail.com', NULL, NULL, NULL, NULL, 1519035265, 1519866065, 1, 'Reza', 'Rafiq', 'Apotek', '123456789', 'avatar.jpg');
 
 -- --------------------------------------------------------
 
@@ -602,6 +670,18 @@ ALTER TABLE `tanggal`
   ADD PRIMARY KEY (`id_tanggal`);
 
 --
+-- Indexes for table `uang_keluar`
+--
+ALTER TABLE `uang_keluar`
+  ADD PRIMARY KEY (`id_uang_keluar`);
+
+--
+-- Indexes for table `uang_masuk`
+--
+ALTER TABLE `uang_masuk`
+  ADD PRIMARY KEY (`id_uang_masuk`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -644,7 +724,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `laku_per_hari`
 --
 ALTER TABLE `laku_per_hari`
-  MODIFY `id_laku_per_hari` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_laku_per_hari` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --
@@ -654,7 +734,7 @@ ALTER TABLE `login_attempts`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `menu`
 --
@@ -664,12 +744,12 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `menu_to_nota`
 --
 ALTER TABLE `menu_to_nota`
-  MODIFY `id_menu_to_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id_menu_to_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 --
 -- AUTO_INCREMENT for table `nota`
 --
 ALTER TABLE `nota`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `psikolog`
 --
@@ -689,7 +769,17 @@ ALTER TABLE `tahun`
 -- AUTO_INCREMENT for table `tanggal`
 --
 ALTER TABLE `tanggal`
-  MODIFY `id_tanggal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_tanggal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `uang_keluar`
+--
+ALTER TABLE `uang_keluar`
+  MODIFY `id_uang_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `uang_masuk`
+--
+ALTER TABLE `uang_masuk`
+  MODIFY `id_uang_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `users`
 --
