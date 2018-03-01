@@ -39,7 +39,7 @@
 				<div class="col" style="text-align: right">Register Now</div>
 			</div>
 			<div class="text-center">
-				<p class="text-secondary bts-ats">Copy Right <?php echo @$brand.' '.date('Y'); ?></p>
+				<p class="text-secondary bts-ats">Copy Right <?php echo date('Y'); ?></p>
 			</div>
 		</div>
 	</div>

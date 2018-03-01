@@ -10,7 +10,7 @@
 		<input type="text" name="string" class="form-control" placeholder="masukan Nama atau kode member" style="width: 100%">
 		<small id="nama_kategori" class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
 	</form>
-	<table class="table">
+	<table class="table" style="font-size: 13px">
 		<tr>
 			<td>NO</td>
 			<td>KODE</td>
@@ -21,7 +21,7 @@
 			<td>TGL CREATE</td>
 			<td colspan="2">ACTION</td>
 		</tr>
-		<?php $no=1 ?>
+		<?php $no=$offset+1 ?>
 		<?php foreach ($hasil as $data): ?>
 			<tr>
 				<td><?php echo $no; ?></td>

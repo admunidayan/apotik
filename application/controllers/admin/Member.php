@@ -9,7 +9,7 @@ class Member extends CI_Controller {
 	}
 	public function index(){
 		if ($this->ion_auth->logged_in()) {
-			$level = array('admin');
+			$level = array('admin','members');
 			if (!$this->ion_auth->in_group($level)) {
 				$pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
 				$this->session->set_flashdata('message', $pesan );
@@ -25,7 +25,7 @@ class Member extends CI_Controller {
 				$config['base_url'] = base_url('index.php/admin/member/index/');
                 $config['total_rows'] = $this->Admin_m->count_data_member(@$post['string']); //total row
                 $config['per_page'] = 10;  //show record per halaman
-                $config["uri_segment"] = 3;  // uri parameter
+                $config["uri_segment"] = 4;  // uri parameter
                 $config['first_link']       = 'Pertama';
                 $config['last_link']        = 'Terakhir';
                 $config['next_link']        = 'Selanjutnya';
@@ -45,7 +45,7 @@ class Member extends CI_Controller {
                 $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
                 $config['last_tagl_close']  = '</span></li>';
                 $this->pagination->initialize($config);
-                $data['offset'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+                $data['offset'] = ($this->uri->segment(3)) ? $this->uri->segment(4) : 0;
                 $data['pagination'] = $this->pagination->create_links();
 				$data['hasil'] = $this->Admin_m->select_all_data_member($config["per_page"], $data['offset'],@$post['string']);
 				$this->load->view('admin/dashboard-v',$data);
